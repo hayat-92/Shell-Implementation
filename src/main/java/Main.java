@@ -32,7 +32,7 @@ public class Main {
                 String path = getPath(command);
                 if (path != null) {
                     path = path + input.substring(command.length());
-                    ProcessBuilder processBuilder = new ProcessBuilder(path);
+                    ProcessBuilder processBuilder = new ProcessBuilder(path.split(" "));
                     Process process = processBuilder.start();
                     process.getInputStream().transferTo(System.out);
                 } else {
