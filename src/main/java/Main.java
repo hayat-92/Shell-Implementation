@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -20,11 +20,28 @@ public class Main {
                 if (arguments.contains(input.substring(5))) {
                     System.out.println(input.substring(5) + " is a shell builtin");
                 } else {
-                    System.out.println(input.substring(5) + ": not found");
+                    String path = getPath(input.substring(5));
+                    if (path != null) {
+                        System.out.println(input.substring(5) + " is " + path);
+                    } else {
+                        System.out.println(input.substring(5) + ": not found");
+                    }
                 }
             } else {
                 System.out.println(input + ": command not found");
             }
         }
+    }
+
+    public static String getPath(String command) {
+        String path = System.getenv("PATH");
+        String[] paths = path.split(":");
+        for (String p : paths) {
+            String fullPath = p + "/" + command;
+            if (new File(fullPath).exists()) {
+                return fullPath;
+            }
+        }
+        return null;
     }
 }
