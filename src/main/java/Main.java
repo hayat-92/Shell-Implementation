@@ -27,7 +27,10 @@ public class Main {
                         System.out.println(input.substring(5) + ": not found");
                     }
                 }
-            } else {
+            } else if ("pwd".equals(input)) {
+                System.out.println(System.getProperty("user.dir"));
+            }
+            else {
                 String command = input.split(" ")[0];
                 String path = getPath(command);
                 if (path != null) {
