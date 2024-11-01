@@ -7,6 +7,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         List<String> arguments = Arrays.asList("echo", "type", "exit", "pwd", "cd");
+        String home = System.getenv("HOME");
+        if(home != null) {
+            System.setProperty("user.home", home);
+        }
         while (true) {
             System.out.print("$ ");
 
@@ -36,8 +40,7 @@ public class Main {
             } else if (input.startsWith("cd ")) {
                 String path = input.substring(3);
                 if (path.startsWith("~")) {
-                    System.setProperty("user.dir", System.getProperty("user.home"));
-                    continue;
+                    path = System.getProperty("user.home");
                 }
                 File file = new File(path);
                 if (!file.isAbsolute()) {
