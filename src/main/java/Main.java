@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
 //         Uncomment this block to pass the first stage
-        List<String> arguments = Arrays.asList("echo", "type", "exit", "pwd");
+        List<String> arguments = Arrays.asList("echo", "type", "exit", "pwd", "cd");
         while (true) {
             System.out.print("$ ");
 
@@ -29,8 +29,17 @@ public class Main {
                 }
             } else if ("pwd".equals(input)) {
                 System.out.println(System.getProperty("user.dir"));
-            }
-            else {
+            } else if ("cd".equals(input)) {
+                System.setProperty("user.dir", System.getProperty("user.home"));
+            } else if (input.startsWith("cd ")) {
+                String path = input.substring(3);
+                File file = new File(path);
+                if (file.exists() && file.isDirectory()) {
+                    System.setProperty("user.dir", file.getAbsolutePath());
+                } else {
+                    System.out.println("cd: " + path + ": No such file or directory");
+                }
+            } else {
                 String command = input.split(" ")[0];
                 String path = getPath(command);
                 if (path != null) {
