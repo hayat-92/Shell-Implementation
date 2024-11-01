@@ -1,18 +1,20 @@
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//         Uncomment this block to pass the first stage
         List<String> arguments = Arrays.asList("echo", "type", "exit", "pwd", "cd");
         while (true) {
             System.out.print("$ ");
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            if ("exit 0".equals(input)) {
+            if (input == null || input.isEmpty()) {
+//                pass
+            } else if ("exit 0".equals(input)) {
                 break;
             } else if (input.startsWith("echo ")) {
                 System.out.println(input.substring(5));
@@ -34,6 +36,9 @@ public class Main {
             } else if (input.startsWith("cd ")) {
                 String path = input.substring(3);
                 File file = new File(path);
+                if (!file.isAbsolute()) {
+                    file = Paths.get(System.getProperty("user.dir"), path).normalize().toFile();
+                }
                 if (file.exists() && file.isDirectory()) {
                     System.setProperty("user.dir", file.getAbsolutePath());
                 } else {
