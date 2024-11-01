@@ -35,6 +35,9 @@ public class Main {
                 System.setProperty("user.dir", System.getProperty("user.home"));
             } else if (input.startsWith("cd ")) {
                 String path = input.substring(3);
+                if (path.startsWith("~")) {
+                    path = System.getProperty("user.home");
+                }
                 File file = new File(path);
                 if (!file.isAbsolute()) {
                     file = Paths.get(System.getProperty("user.dir"), path).normalize().toFile();
