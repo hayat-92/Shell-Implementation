@@ -36,7 +36,7 @@ public class Main {
             } else if (input.startsWith("cd ")) {
                 String path = input.substring(3);
                 if (path.startsWith("~")) {
-                    System.setProperty("user.dir", System.getenv("HOME"));
+                    System.setProperty("user.dir", System.getProperty("user.home"));
                     continue;
                 }
                 File file = new File(path);
