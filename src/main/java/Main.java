@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
 //         Uncomment this block to pass the first stage
-        List<String> arguments = Arrays.asList("echo", "type", "exit");
+        List<String> arguments = Arrays.asList("echo", "type", "exit", "pwd");
         while (true) {
             System.out.print("$ ");
 
